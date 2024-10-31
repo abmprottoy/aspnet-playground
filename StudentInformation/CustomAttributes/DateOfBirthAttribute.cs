@@ -9,12 +9,12 @@ namespace StudentInformation.CustomAttributes
     public class DateOfBirthAttribute : ValidationAttribute
     {
         public int MinimumAge { get; set; }
+        public string DateFormat { get; set; } = "yyyy-MM-dd";  // Optional format for error message
 
         public DateOfBirthAttribute(int minimumAge)
         {
             MinimumAge = minimumAge;
-
-            ErrorMessage = ErrorMessage ?? $"Date of birth must be at least {MinimumAge} years ago.";
+            ErrorMessage = $"Date of birth must be at least {MinimumAge} years ago.";
         }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
@@ -29,6 +29,11 @@ namespace StudentInformation.CustomAttributes
                 var today = DateTime.Today;
                 var age = today.Year - dateOfBirth.Year;
 
+                // Adjust for birthdate that hasn't occurred yet this year
+                if (dateOfBirth > today.AddYears(-age))
+                {
+                    age--;
+                }
 
                 if (age >= MinimumAge)
                 {

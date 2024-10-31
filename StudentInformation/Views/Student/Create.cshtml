@@ -31,14 +31,19 @@
         }
     </div>
 
+    @{
+        var today = DateTime.Today;
+        var maxDate = today.AddYears(-20).ToString("dd-MM-yyyy"); // 20 years ago from today
+    }
+
     <div class="form-group">
         <label for="DoB">Date of Birth</label>
-        <input type="text" value="@Model.DOB" placeholder="Date of Birth" class="form-control" name="DoB" />
-        @if (ViewData.ModelState["DoB"]?.Errors.Count > 0)
+        <input type="date" value="" max="@maxDate" class="form-control" name="DOB" />
+        @if (ViewData.ModelState["DOB"]?.Errors.Count > 0)
         {
             <span class="color-type-alert">
-                <i class="glyph glyph-warning"></i>
-                @Html.ValidationMessage("DoB")
+                <span class="glyph glyph-warning"></span>
+                @Html.ValidationMessage("DOB")
             </span>
         }
     </div>

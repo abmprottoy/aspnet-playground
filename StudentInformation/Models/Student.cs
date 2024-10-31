@@ -24,7 +24,8 @@ namespace StudentInformation.Models
         public string Email { get; set; }
 
         [Required]
-        [DateOfBirth(20, ErrorMessage = "Age must be 20 years old")]
-        public string DOB { get; set; }
+        [DateOfBirth(20, ErrorMessage = "Age must be at least 20 years old")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-YYYY}", ApplyFormatInEditMode = true)]
+        public DateTime DOB { get; set; }
     }
 }
