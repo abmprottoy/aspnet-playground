@@ -34,11 +34,12 @@
     @{
         var today = DateTime.Today;
         var maxDate = today.AddYears(-20).ToString("dd-MM-yyyy"); // 20 years ago from today
+        var dobValue = Model.DOB != DateTime.MinValue ? Model.DOB.ToString("dd-MM-yyyy") : "";
     }
 
     <div class="form-group">
         <label for="DoB">Date of Birth</label>
-        <input type="date" value="" max="@maxDate" class="form-control" name="DOB" />
+        <input type="date" value="@dobValue" max="@maxDate" class="form-control" name="DOB" />
         @if (ViewData.ModelState["DOB"]?.Errors.Count > 0)
         {
             <span class="color-type-alert">
