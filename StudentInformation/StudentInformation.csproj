@@ -114,6 +114,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="CustomAttributes\DateOfBirthAttribute.cs" />
+    <Compile Include="CustomAttributes\EmailMatchesIDAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
