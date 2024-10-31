@@ -22,6 +22,7 @@ namespace StudentInformation
             bundles.Add(new Bundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/winstrap.css",
                       "~/Content/site.css"));
