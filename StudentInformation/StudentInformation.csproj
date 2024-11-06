@@ -44,6 +44,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -51,6 +57,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -115,6 +123,24 @@
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="CustomAttributes\DateOfBirthAttribute.cs" />
     <Compile Include="CustomAttributes\EmailMatchesIDAttribute.cs" />
+    <Compile Include="EF\StudentInfo.cs">
+      <DependentUpon>StudentInformations.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\StudentInformations.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StudentInformations.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\StudentInformations.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StudentInformations.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\StudentInformations.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StudentInformations.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -123,6 +149,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\winstrap.css" />
+    <Content Include="EF\StudentInformations.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>StudentInformations.edmx</DependentUpon>
+      <LastGenOutput>StudentInformations.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EF\StudentInformations.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>StudentInformations.edmx</DependentUpon>
+      <LastGenOutput>StudentInformations.cs</LastGenOutput>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Fonts\LICENSE.txt" />
     <Content Include="Global.asax" />
@@ -141,6 +177,13 @@
     <Content Include="Fonts\glyphs\winjs-symbols.eot" />
     <Content Include="Fonts\glyphs\winjs-symbols.ttf" />
     <Content Include="Fonts\glyphs\winjs-symbols.woff" />
+    <EntityDeploy Include="EF\StudentInformations.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>StudentInformations.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="EF\StudentInformations.edmx.diagram">
+      <DependentUpon>StudentInformations.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.7.1-vsdoc.js" />
@@ -171,12 +214,16 @@
     <Content Include="Views\Student\Create.cshtml" />
     <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.7.1.min.map" />
+    <Content Include="Views\Student\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

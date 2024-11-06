@@ -22,8 +22,9 @@ namespace Winstrap
             bundles.Add(new Bundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/winstrap.css",
                       "~/Content/site.css"));
         }
     }

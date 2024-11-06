@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<br />
+@if (TempData["Msg"] != null)
+{
+    <span class="alert alert-info">@TempData["Msg"]</span>
+}
+<a class="btn btn-danger" href="/student/create">Create</a>
+@if (Model.Count == 0)
+{
+    <h3>No Data Found</h3>
+}
+else
+{
+
+    <div class="entity-list entity-list-add-item-button">
+        <a class="entity-list-item" href="#">
+            <div class="item-icon">
+                <span class="glyph glyph-add"></span>
+            </div>
+            <div class="item-content-primary">
+                <div class="content-text-primary">Add new Student</div>
+            </div>
+        </a>
+    </div>
+
+    foreach (var item in Model)
+    {
+        <div class="entity-list entity-list-expandable">
+            <div class="entity-list-item">
+                <div class="item-icon">
+                    <span class="glyph glyph-contact"></span>
+                </div>
+                <div class="item-content-secondary">
+                    <div class="content-text-primary">@item.Id</div>
+                    <div class="content-text-secondary">@item.Dob.ToString("dd MMM, yyyy")</div>
+                </div>
+                <div class="item-content-primary">
+                    <div class="content-text-primary">@item.Name</div>
+                    <div class="content-text-secondary">@item.Email</div>
+                </div>
+                <div class="item-content-expanded">
+                    <button class="btn btn-default" disabled="disabled">Uninstall</button>
+                    <button class="btn btn-default">Move</button>
+                </div>
+            </div>
+        </div>
+    }
+
+
+
+
+
+
+
+}
