@@ -10,7 +10,7 @@
 {
     <span class="alert alert-info">@TempData["Msg"]</span>
 }
-<a class="btn btn-danger" href="/student/create">Create</a>
+
 @if (Model.Count == 0)
 {
     <h3>No Data Found</h3>
@@ -19,7 +19,7 @@ else
 {
 
     <div class="entity-list entity-list-add-item-button">
-        <a class="entity-list-item" href="#">
+        <a class="entity-list-item" href="/student/create">
             <div class="item-icon">
                 <span class="glyph glyph-add"></span>
             </div>
@@ -29,9 +29,10 @@ else
         </a>
     </div>
 
-    foreach (var item in Model)
-    {
-        <div class="entity-list entity-list-expandable">
+    <div class="entity-list entity-list-expandable">
+
+    @foreach (var item in Model)
+        {
             <div class="entity-list-item">
                 <div class="item-icon">
                     <span class="glyph glyph-contact"></span>
@@ -45,17 +46,40 @@ else
                     <div class="content-text-secondary">@item.Email</div>
                 </div>
                 <div class="item-content-expanded">
-                    <button class="btn btn-default" disabled="disabled">Uninstall</button>
-                    <button class="btn btn-default">Move</button>
+                    <button class="btn btn-primary">Details</button>
+                    <button class="btn btn-primary">Edit</button>
+                    <button class="btn btn-danger">Delete</button>
                 </div>
             </div>
-        </div>
+        }
+
+    </div>
+
+    @section scripts {
+        <script>
+            $(document).ready(function () {
+                $(document).ready(function () {
+                    $('.entity-list-expandable .entity-list-item').click(function () {
+                        // Get the parent container
+                        var parent = $(this).parent();
+
+                        // Remove the "active" class from all items within the parent
+                        $('.entity-list-item', parent).removeClass('active');
+
+                        // Add the "active" class to the clicked item only
+                        $(this).addClass('active');
+                    });
+
+                    // Click event for anywhere outside the entity list to deactivate all items
+                    $(document).click(function (event) {
+                        // Check if the click was outside the .entity-list-expandable container
+                        if (!$(event.target).closest('.entity-list-expandable').length) {
+                            // Remove active class from all entity list items
+                            $('.entity-list-expandable .entity-list-item').removeClass('active');
+                        }
+                    });
+                });
+            });
+        </script>
     }
-
-
-
-
-
-
-
 }
