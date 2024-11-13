@@ -3,15 +3,27 @@
     ViewBag.Title = "Store";
 }
 
-<h2>Index</h2>
+<h2 class="type-h2">Store</h2>
 
-<p>
-    Select from @Model.Count()
-    genres:
+<p class="type-sh2">
+   Explore our curated collection of @Model.Count() genres and discover your next favorite music
 </p>
-<ul>
+
+
+
+<div class="row section-gallery m-t-sm">
     @foreach (var genre in Model)
     {
-        <li>@Html.ActionLink(genre.Name, "Browse", new { genre = genre.Name })</li>
+        <div class="col-md-3">
+
+            <figure class="media">
+                <div class="media-img media-img-has-label ratio-movie">
+                    <a href="/Store/Browse?genre=@genre.Name">
+                        <img src="~/Content/Images/MusicGenre.png" alt="" />
+                    </a>
+                    <span class="media-img-label"><i class="type-sh3">@genre.Name</i></span>
+                </div>
+            </figure>
+        </div>
     }
-</ul>
+</div>

@@ -3,12 +3,27 @@
     ViewBag.Title = "Browse";
 }
 
-<h2>Browsing Genre: @Model.Name</h2>
-<ul>
+<h2>Albums</h2>
+
+<ol class="breadcrumb">
+    <li><a href="/Home">Home</a></li>
+    <li><a href="/Store/">Genres</a></li>
+    <li class="active">@Model.Name</li>
+</ol>
+
+<div class="row section-gallery m-t-sm">
     @foreach (var album in Model.Albums)
     {
-        <li>
-            @Html.ActionLink(album.Title,"Details", new { id = album.AlbumId })
-        </li>
+        <div class="col-md-3">
+
+            <figure class="media">
+                <div class="media-img media-img-has-label ratio-movie">
+                    <a href="/Store/Details?id=@album.AlbumId">
+                        <img src="~/Content/Images/MusicAlbum.jpg" alt="" />
+                    </a>
+                    <span class="media-img-label"><i class="type-c1">@album.Title</i></span>
+                </div>
+            </figure>
+        </div>
     }
-</ul>
+</div>
