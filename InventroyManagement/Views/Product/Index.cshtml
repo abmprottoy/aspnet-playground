@@ -1,0 +1,39 @@
+﻿@model List<InventroyManagement.DTOs.ProductDTO>
+
+<h2>Product List</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Product ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Stock Quantity</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.ProductID</td>
+                <td>@product.Name</td>
+                <td>@product.Description</td>
+                <td>@product.Price</td>
+                <td>@product.StockQuantity</td>
+                <td>@product.Category</td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = product.ProductID }, new { @class = "btn btn-secondary" }) 
+                    @Html.ActionLink("Edit", "Edit", new { id = product.ProductID }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Delete", "Delete", new { id = product.ProductID }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    @Html.ActionLink("Create New Product", "Create")
+</p>
