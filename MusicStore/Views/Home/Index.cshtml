@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<div class="jumbotron theme-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-md-push-12 text-center">
+                <img class="img-responsive visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block visible-xl-inline-block" alt="" src="~/Content/Images/MusicCovers.jpg" data-source-index="2">
+            </div>
+            <div class="col-md-12 col-md-pull-12">
+                <div class="type-h3">
+                    Soundwave Music
+                </div>
+                <div class="type-sh3">
+                    Elevate your music collection
+                </div>
+                <p>Find your music taste and buy latest release from your favorite artists only from Soundwave music with great discount and offers.</p>
+                <div class="btn-group">
+                    <button class="btn btn-primary color-darkgreen" href="#">Buy Music</button>
+                    <button class="btn btn-secondary" href="#">Read more</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    var roles = Roles.GetRolesForUser(User.Identity.Name);
+    foreach (var role in roles)
+    {
+        <div>"User is in role: @role</div>
+    }
+}

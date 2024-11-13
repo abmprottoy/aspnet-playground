@@ -1,0 +1,55 @@
+﻿@model MusicStore.Models.Album
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Album</h4>
+    <hr />
+
+    <div class="type-h4">Title</div>
+    <div class="type-sh4">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="type-h4">Artist</div>
+    <div class="type-sh4">
+        @if (Model.Artist != null)
+        {
+            @Html.DisplayFor(model => model.Artist.Name)
+        }
+        else
+        {
+            <span>Artist not available</span>
+        }
+    </div>
+
+    <div class="type-h4">Genre</div>
+    <div class="type-sh4">
+        @if (Model.Genre != null)
+        {
+            @Html.DisplayFor(model => model.Genre.Name)
+        }
+        else
+        {
+            <span>Genre not available</span>
+        }
+    </div>
+
+    <div class="type-h4">Price</div>
+    <div class="type-sh4">
+        @Html.DisplayFor(model => model.Price)
+    </div>
+
+    <div class="type-h4">AlbumArtUrl</div>
+    <div class="type-sh4">
+        @Html.DisplayFor(model => model.AlbumArtUrl)
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AlbumId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
