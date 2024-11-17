@@ -31,5 +31,8 @@ namespace InventroyManagement.DTOs
         [Required]
         [DateJoinedValidation]
         public System.DateTime DateJoined { get; set; } = DateTime.Now; //If Date Joined is not choose custom attribute will set it to current date by default
+
+        // Navigation property for purchases
+        public ICollection<PurchaseDTO> Purchases { get; set; }
     }
 }

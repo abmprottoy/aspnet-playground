@@ -4,7 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using InventroyManagement.DTOs;
+using InventroyManagement.Models;
 using InventroyManagement.EF;
+using InventroyManagement.Helpers;
+using System.Data.Entity;
 
 namespace InventroyManagement.Controllers
 {
@@ -21,11 +24,12 @@ namespace InventroyManagement.Controllers
                 Description = p.Description,
                 Price = p.Price,
                 StockQuantity = p.StockQuantity,
-                Category = p.Category.ToString(),
+                Category = p.Category
             };
         }
         public static ProductDTO Convert(Product p)
         {
+
             return new ProductDTO()
             {
                 ProductID = p.ProductId,
@@ -33,17 +37,12 @@ namespace InventroyManagement.Controllers
                 Description = p.Description,
                 Price = p.Price ?? 0,
                 StockQuantity = p.StockQuantity ?? 0,
-                Category = (ProductCategory)Enum.Parse(typeof(ProductCategory), p.Category)
+                Category = p.Category
             };
         }
         public static List<ProductDTO> Convert(List<Product> data)
         {
-            var list = new List<ProductDTO>();
-            foreach (var p in data)
-            {
-                list.Add(Convert(p));
-            }
-            return list;
+            return data.Select(Convert).ToList();
         }
 
         // GET: Product
@@ -53,24 +52,31 @@ namespace InventroyManagement.Controllers
             return View(Convert(data));
         }
 
-        [HttpGet]
+        // GET: Product/Create (Create Product)
         public ActionResult Create()
         {
-            return View();
+            var productDto = new ProductDTO();
+            ViewBag.ProductCategories = ProductCategories.Categories;
+            return View(productDto);
         }
 
+        // POST: Product/Create (Save New Product)
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ProductDTO p)
+        public ActionResult Create(ProductDTO productDTO)
         {
+            ViewBag.ProductCategories = ProductCategories.Categories;
+
             if (ModelState.IsValid)
             {
-                db.Products.Add(Convert(p));
+                // Convert ProductDTO to Product and add to db
+                var product = Convert(productDTO);
+                db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(p);
 
+            return View(productDTO);
         }
 
         public ActionResult Details(int id)
@@ -93,6 +99,7 @@ namespace InventroyManagement.Controllers
                 return HttpNotFound();
             }
             var productDTO = Convert(product);
+            ViewBag.ProductCategories = ProductCategories.Categories;
             return View(productDTO);
         }
 
@@ -102,23 +109,27 @@ namespace InventroyManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Find the existing product
+                // Find the existing product in the database
                 var product = db.Products.Find(productDTO.ProductID);
                 if (product == null)
                 {
                     return HttpNotFound();
                 }
 
-                // Update product properties
+                // Update product fields with the data from the DTO
                 product.Name = productDTO.Name;
                 product.Description = productDTO.Description;
                 product.Price = productDTO.Price;
                 product.StockQuantity = productDTO.StockQuantity;
-                product.Category = productDTO.Category.ToString();
+                product.Category = productDTO.Category;
+
+                // Mark the product entity as modified
+                db.Entry(product).State = EntityState.Modified;
 
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(productDTO);
         }
 

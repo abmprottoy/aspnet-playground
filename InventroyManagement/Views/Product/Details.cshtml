@@ -1,28 +1,70 @@
 ﻿@model InventroyManagement.DTOs.ProductDTO
 
-<h2>Product Details</h2>
+<div class="page-header">
+    <div class="container">
+        <div class="row p-b-lg">
+            <div class="col-md-19">
+                <h1>@Model.Name</h1>
+                <p class="color-type-secondary">@Model.Description</p>
+            </div>
+            <div class="col-md-5">
+                <a href="@Url.Action("Index")" class="btn btn-primary p-xs m-t-lg" style="background-color: #004B50">
+                    <i class="glyph glyph-chevron-left m-r-xxxs p-b-xxxs"></i> Go back to the list
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 
-<dl class="dl-horizontal">
-    <dt>Product ID</dt>
-    <dd>@Model.ProductID</dd>
-
-    <dt>Name</dt>
-    <dd>@Model.Name</dd>
-
-    <dt>Description</dt>
-    <dd>@Model.Description</dd>
-
-    <dt>Price</dt>
-    <dd>@Model.Price</dd>
-
-    <dt>Stock Quantity</dt>
-    <dd>@Model.StockQuantity</dd>
-
-    <dt>Category</dt>
-    <dd>@Model.Category</dd>
-</dl>
-
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="table-responsive container p-v-sm">
+    <table class="table">
+        <tbody>
+            <tr>
+                <td class="p-b-lg">
+                    <p class="type-t3">Product Details</p>
+                </td>
+                <td class="p-b-lg">
+                    <a href="@Url.Action("Edit", new { id = Model.ProductID })" class="btn btn-primary" style="background-color: #004B50;">
+                        <i class="glyph glyph-edit m-r-xxxs p-b-xxxs"></i> Edit
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td class="type-t7 col-sm-24" style="font-weight: 700; font-family:'Segoe UI','Selawik'; color: #008287">PRODUCT ID</td>
+            </tr>
+            <tr>
+                <td class="type-t4 col-sm-24 p-b-sm">@Model.ProductID</td>
+            </tr>
+            <tr>
+                <td class="type-t7 col-sm-24" style="font-weight: 700; font-family:'Segoe UI','Selawik'; color: #008287">NAME</td>
+            </tr>
+            <tr>
+                <td class="type-t4 col-sm-24 p-b-sm">@Model.Name</td>
+            </tr>
+            <tr>
+                <td class="type-t7 col-sm-24" style="font-weight: 700; font-family:'Segoe UI','Selawik'; color: #008287">DESCRIPTION</td>
+            </tr>
+            <tr>
+                <td class="type-t4 col-sm-24 p-b-sm">@Model.Description</td>
+            </tr>
+            <tr>
+                <td class="type-t7 col-sm-24" style="font-weight: 700; font-family:'Segoe UI','Selawik'; color: #008287">PRICE</td>
+            </tr>
+            <tr>
+                <td class="type-t4 col-sm-24 p-b-sm">@Model.Price</td>
+            </tr>
+            <tr>
+                <td class="type-t7 col-sm-24" style="font-weight: 700; font-family:'Segoe UI','Selawik'; color: #008287">STOCK QUANTITY</td>
+            </tr>
+            <tr>
+                <td class="type-t4 col-sm-24 p-b-sm">@Model.StockQuantity</td>
+            </tr>
+            <tr>
+                <td class="type-t7 col-sm-24" style="font-weight: 700; font-family:'Segoe UI','Selawik'; color: #008287">CATEGORY</td>
+            </tr>
+            <tr>
+                <td class="type-t4 col-sm-24 p-b-sm">@Model.Category</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

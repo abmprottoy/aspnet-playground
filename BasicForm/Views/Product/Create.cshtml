@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+<form method="post">
+    <input type="text" name="CommercialName" placeholder="CommercialName" />
+    <span class="text-danger">@Html.ValidationMessage("CommercialName")</span> <br />
+
+    <input type="text" name="CommonName" placeholder="CommonName" />
+    <span class="text-danger">@Html.ValidationMessage("CommonName")</span> <br />
+
+    <input type="text" name="Description" placeholder="Description" />
+    <span class="text-danger">@Html.ValidationMessage("Description")</span> <br />
+
+    <input type="text" name="Price" placeholder="Price" />
+    <span class="text-danger">@Html.ValidationMessage("Price")</span> <br />
+    <input type="submit" value="Create" />
+</form>

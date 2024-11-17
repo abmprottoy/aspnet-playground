@@ -27,9 +27,51 @@
           <Property Name="StockQuantity" Type="int" />
           <Property Name="Category" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Purchases">
+          <Key>
+            <PropertyRef Name="PurchaseId" />
+          </Key>
+          <Property Name="PurchaseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="PurchaseDate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__Purchases__Custo__37A5467C">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="Purchases" Type="Self.Purchases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Purchases">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Purchases__Produ__38996AB5">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Purchases" Type="Self.Purchases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="Purchases">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="InventoryManagementModelStoreContainer">
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Purchases" EntityType="Self.Purchases" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Purchases__Custo__37A5467C" Association="Self.FK__Purchases__Custo__37A5467C">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Purchases" EntitySet="Purchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Purchases__Produ__38996AB5" Association="Self.FK__Purchases__Produ__38996AB5">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Purchases" EntitySet="Purchases" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -45,6 +87,7 @@
           <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="DateJoined" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Purchases" Relationship="InventoryManagementModel.FK__Purchases__Custo__37A5467C" FromRole="Customer" ToRole="Purchase" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -56,11 +99,56 @@
           <Property Name="Price" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="StockQuantity" Type="Int32" />
           <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Purchases" Relationship="InventoryManagementModel.FK__Purchases__Produ__38996AB5" FromRole="Product" ToRole="Purchase" />
         </EntityType>
         <EntityContainer Name="InventoryManagementEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="Purchases1" EntityType="InventoryManagementModel.Purchase" />
+          <AssociationSet Name="FK__Purchases__Custo__37A5467C" Association="InventoryManagementModel.FK__Purchases__Custo__37A5467C">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Purchase" EntitySet="Purchases1" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Purchases__Produ__38996AB5" Association="InventoryManagementModel.FK__Purchases__Produ__38996AB5">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Purchase" EntitySet="Purchases1" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Purchase">
+          <Key>
+            <PropertyRef Name="PurchaseId" />
+          </Key>
+          <Property Name="PurchaseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="PurchaseDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Customer" Relationship="InventoryManagementModel.FK__Purchases__Custo__37A5467C" FromRole="Purchase" ToRole="Customer" />
+          <NavigationProperty Name="Product" Relationship="InventoryManagementModel.FK__Purchases__Produ__38996AB5" FromRole="Purchase" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK__Purchases__Custo__37A5467C">
+          <End Type="InventoryManagementModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="InventoryManagementModel.Purchase" Role="Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Purchases__Produ__38996AB5">
+          <End Type="InventoryManagementModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="InventoryManagementModel.Purchase" Role="Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -88,6 +176,16 @@
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="StockQuantity" ColumnName="StockQuantity" />
                 <ScalarProperty Name="Category" ColumnName="Category" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Purchases1">
+            <EntityTypeMapping TypeName="InventoryManagementModel.Purchase">
+              <MappingFragment StoreEntitySet="Purchases">
+                <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="PurchaseId" ColumnName="PurchaseId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

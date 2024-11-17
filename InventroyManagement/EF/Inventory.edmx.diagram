@@ -7,6 +7,9 @@
       <Diagram DiagramId="7fa92ef4c8e44f3aac8dfeb60dc9b54b" Name="Diagram1">
         <EntityTypeShape EntityType="InventoryManagementModel.Customer" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="InventoryManagementModel.Product" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagementModel.Purchase" Width="1.5" PointX="5" PointY="1" />
+        <AssociationConnector Association="InventoryManagementModel.FK__Purchases__Custo__37A5467C" />
+        <AssociationConnector Association="InventoryManagementModel.FK__Purchases__Produ__38996AB5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

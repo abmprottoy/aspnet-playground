@@ -1,44 +1,144 @@
 ﻿@model InventroyManagement.DTOs.ProductDTO
 
-<h2>Edit Product</h2>
+<div class="page-header">
+    <div class="container">
+        <div class="row p-b-lg">
+            <div class="col-md-19">
+                <h1>Edit an existing product</h1>
+                <p class="color-type-secondary">Edit details for @Model.Name</p>
+            </div>
+            <div class="col-md-5">
+                <a href="@Url.Action("Index")" class="btn btn-primary p-xs m-t-lg" style="background-color: #004B50">
+                    <i class="glyph glyph-chevron-left m-r-xxxs p-b-xxxs"></i> Go back to the list
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 
-@using (Html.BeginForm("Edit", "Product", FormMethod.Post))
+@if (!ViewData.ModelState.IsValid)
 {
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(model => model.ProductID)
-
-    <!-- Display validation summary -->
-    @Html.ValidationSummary()
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Name)
-        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+    <div class="alert alert-danger with-glyph alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">
+                <i class="glyph glyph-cancel"></i>
+            </span>
+        </button>
+        <span class="alert-glyph">
+            <i class="glyph glyph-warning"></i>
+        </span>
+        <div class="alert-title">Error</div>
+        <div class="row">
+            <div class="col-md-24">
+                <div class="type-t8">@Html.ValidationSummary()</div>
+            </div>
+        </div>
     </div>
+}
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Description)
-        @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-    </div>
+<div class="container p-v-sm">
+    @using (Html.BeginForm("Edit", "Product", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.ProductID)
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Price)
-        @Html.TextBoxFor(model => model.Price, new { @class = "form-control", type = "number", step = "0.01" })
-        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
-    </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name)
+            @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+            @if (ViewData.ModelState["Name"]?.Errors.Count > 0)
+            {
+                <span class="color-type-alert">
+                    <i class="glyph glyph-warning"></i>
+                    @Html.ValidationMessage("Name")
+                </span>
+            }
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.StockQuantity)
-        @Html.TextBoxFor(model => model.StockQuantity, new { @class = "form-control", type = "number" })
-        @Html.ValidationMessageFor(model => model.StockQuantity, "", new { @class = "text-danger" })
-    </div>
+        </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Category)
-        @Html.TextBoxFor(model => model.Category, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
-    </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description)
+            @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+            @if (ViewData.ModelState["Description"]?.Errors.Count > 0)
+            {
+                <span class="color-type-alert">
+                    <i class="glyph glyph-warning"></i>
+                    @Html.ValidationMessage("Description")
+                </span>
+            }
+        </div>
 
-    <input type="submit" value="Save" class="btn btn-primary" />
+        <div class="form-group">
+            @Html.LabelFor(model => model.Price)
+            @Html.TextBoxFor(model => model.Price, new { @class = "form-control", type = "number" })
+            @if (ViewData.ModelState["Price"]?.Errors.Count > 0)
+            {
+                <span class="color-type-alert">
+                    <i class="glyph glyph-warning"></i>
+                    @Html.ValidationMessage("Price")
+                </span>
+            }
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StockQuantity)
+            @Html.TextBoxFor(model => model.StockQuantity, new { @class = "form-control", type = "number" })
+            @if (ViewData.ModelState["StockQuantity"]?.Errors.Count > 0)
+            {
+                <span class="color-type-alert">
+                    <i class="glyph glyph-warning"></i>
+                    @Html.ValidationMessage("StockQuantity")
+                </span>
+            }
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Category)
+            @Html.DropDownListFor(model => model.Category,
+                                                             new SelectList(InventroyManagement.Models.ProductCategories.Categories),
+                                                             new { @class = "form-control", @style = "max-width: 296px;" })
+            @if (ViewData.ModelState["Category"]?.Errors.Count > 0)
+            {
+                <span class="color-type-alert">
+                    <i class="glyph glyph-warning"></i>
+                    @Html.ValidationMessage("Category")
+                </span>
+            }
+        </div>
+
+        <input type="submit" value="Save" class="btn btn-primary" style="background-color: #004B50" />
+    }
+
+</div>
+
+@section scripts{
+    <script>$(document).ready(function () {
+            const maxChars = 500;
+            const warningLimit = 15;
+
+            $('#Description').after('<div id="charCounter" class="type-c2 color-type-secondary"></div>');
+            updateCharCounter();
+
+            $('#Description').on('input', function () {
+                updateCharCounter();
+            });
+
+            function updateCharCounter() {
+                let remainingChars = maxChars - $('#Description').val().length;
+                let counterElement = $('#charCounter');
+
+                counterElement.text(remainingChars + ' / ' + maxChars);
+
+                if (remainingChars <= 0) {
+                    $('#Description').addClass('color-type-alert');
+                    counterElement.addClass('color-type-alert');
+                    counterElement.text(remainingChars + ' / ' + maxChars);
+                } else if (remainingChars <= warningLimit) {
+                    counterElement.addClass('color-type-alert');
+                    $('#Description').removeClass('color-type-alert');
+                } else {
+                    counterElement.removeClass('color-type-alert');
+                    $('#Description').removeClass('color-type-alert');
+                }
+            }
+        });</script>
 }

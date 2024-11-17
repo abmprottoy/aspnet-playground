@@ -1,6 +1,63 @@
 ﻿@model List<InventroyManagement.DTOs.ProductDTO>
 
-<h2>Product List</h2>
+<div class="page-header">
+    <div class="container">
+        <div class="row p-b-lg">
+            <div class="col-md-19">
+                <h1>Product List</h1>
+                <p class="color-type-secondary">View all the products</p>
+            </div>
+            <div class="col-md-5">
+                <a href="@Url.Action("Create")" class="btn btn-primary p-xs m-t-lg" style="background-color: #004B50">
+                    <i class="glyph glyph-add m-r-xxxs p-b-xxxs"></i> Create New Product
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ol class="list-items">
+    <li class="list-items-row">
+        <div data-toggle="collapse" aria-expanded="false" data-target="#list-item-line-1">
+            <div class="row">
+                <div class="col-md-2">
+                    <i class="glyph glyph-add"></i>
+                    <i class="glyph glyph-remove"></i>
+                    <strong>1</strong>
+                </div>
+                <div class="col-md-6">
+                    <a>Link</a>
+                </div>
+                <div class="col-md-4">
+                    Text
+                </div>
+                <div class="col-md-4">
+                    Text
+                </div>
+                <div class="col-md-4">
+                    Text
+                </div>
+                <div class="col-md-4 text-right">
+                    <a>Link</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="collapse" id="list-item-line-1">
+            <div class="row">
+                <div class="col-md-18 col-md-offset-2">
+                    Lorem ipsum dolor sit amet.
+                </div>
+                <div class="col-md-4 text-right">
+                    <button class="btn btn-primary btn-sm">Button</button>
+                </div>
+            </div>
+        </div>
+    </li>
+</ol>
+
+
 
 <table class="table table-bordered">
     <thead>
@@ -21,11 +78,11 @@
                 <td>@product.ProductID</td>
                 <td>@product.Name</td>
                 <td>@product.Description</td>
-                <td>@product.Price</td>
+                <td>৳@product.Price</td>
                 <td>@product.StockQuantity</td>
                 <td>@product.Category</td>
                 <td>
-                    @Html.ActionLink("Details", "Details", new { id = product.ProductID }, new { @class = "btn btn-secondary" }) 
+                    @Html.ActionLink("Details", "Details", new { id = product.ProductID }, new { @class = "btn btn-secondary" })
                     @Html.ActionLink("Edit", "Edit", new { id = product.ProductID }, new { @class = "btn btn-success" })
                     @Html.ActionLink("Delete", "Delete", new { id = product.ProductID }, new { @class = "btn btn-danger" })
                 </td>
@@ -34,6 +91,5 @@
     </tbody>
 </table>
 
-<p>
-    @Html.ActionLink("Create New Product", "Create")
-</p>
+
+
