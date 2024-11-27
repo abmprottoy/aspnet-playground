@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Access Denied";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+
+    var user = Session["User"] as LibraryManagement.DTOs.UserDTO; // Retrieve user info from session
+    var isLoggedIn = user != null; // Check if a user is logged in
+}
+
+@if (!isLoggedIn)
+{
+    <span class="glyph glyph-contact-2 type-t1 color-type-accent m-t-xxl" aria-hidden="true"></span>
+
+    <p class="type-t1 color-type-accent">Oops!</p>
+    <p class="type-sh1 color-type-accent">Access Denied</p>
+
+    <p class="type-p2 color-type-secondary">You need to be signed in first. Please sign in or create an account.</p>
+
+    <div class="btn-group m-b-xxl">
+        <a class="btn btn-primary theme-alt" href="@Url.Action("Login","Account")">Sign In</a>
+        <a class="btn btn-secondary theme-light" href="@Url.Action("Register","Account")">Create an account</a>
+    </div>
+}
+else
+{
+    <span class="glyph glyph-block-contact type-t1 color-type-alert m-t-xxl" aria-hidden="true"></span>
+
+    <p class="type-t1 color-type-alert">Oops!</p>
+    <p class="type-sh1 color-type-alert">Access Denied</p>
+
+    <p class="type-p2 color-type-secondary">You do not have enough permission to view this page. Please contact with your administrator.</p>
+
+    <div class="btn-group m-b-xxl">
+        <button class="btn btn-primary theme-alt" onclick="history.back()"><i class="glyph glyph-back m-r-xxxs"></i>Go back</button>
+    </div>
+}

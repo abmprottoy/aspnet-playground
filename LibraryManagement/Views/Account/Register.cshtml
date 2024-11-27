@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Register"; Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div class="col-md-12 col-xs-24">
+    <div class="type-h4 color-type-primary"><b>Sign Up</b></div>
+    <div class="type-c1 color-type-secondary m-b-sm">for a new account</div>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">
+                    <i class="glyph glyph-cancel"></i>
+                </span>
+            </button>
+            <div class="row">
+                <div class="col-md-20">
+                    <p><i class="glyph glyph-info"></i> @ViewBag.Error</p>
+                </div>
+            </div>
+        </div>
+    }
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+    {
+        <div class="form-group">
+            <label class="type-c1 color-type-secondary">Username</label>
+            <input type="text" class="form-control" name="userName" />
+        </div>
+        <div class="form-group">
+            <label class="type-c1 color-type-secondary">Email</label>
+            <input type="email" class="form-control" placeholder="someone@example.com" name="userEmail" />
+        </div>
+        <div class="form-group">
+            <label class="type-c1 color-type-secondary">Password</label>
+            <input type="password" class="form-control" name="password" />
+        </div>
+        <button type="submit" class="btn btn-primary theme-default">Create</button>
+    }
+
+    <div class="type-c1 m-v-sm">Already have an account? <a href="@Url.Action("Login","Account")">Sign In</a></div>
+</div>

@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Library Management</title> <!--TODO: Edit title here -->
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body class="login-body">
+    <nav class="navbar navbar-default">
+        <div class="navbar-global theme-dark color-bg-dark-vivid-mid">
+            <div class="container">
+                <div class="navbar-header">
+                    <i class="navbar-brand glyph glyph-caption"></i>
+                    @Html.ActionLink("Library Managemenet", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" }) <!--TODO: Edit title here -->
+                    <button type="button" class="navbar-toggle collapsed pull-right" data-toggle="collapse" data-target="#navheader">
+                        <span class="sr-only">Toggle navigation</span>
+                        <i class="glyph glyph-hamburger"></i>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="navheader">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                        @Html.Partial("_LoginPartial")
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
