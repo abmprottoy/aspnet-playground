@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+}
+<form class="navbar-form p-l-n m-l-n" role="search">
+    <div class="form-group ">
+        <input type="text" id="navbar-search-input" class="form-control" placeholder="Search..." style="min-width:500px">
+        <button type="submit" class="btn btn-default theme-on-img-light"></button>
+    </div>
+</form>
+
+<div>
+    <p class="type-c1 color-type-secondary">About 3 results (0.55 ms)</p>
+</div>
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs p-t-xs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">title</a></li>
+    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">author</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">This is search result for title</div>
+    <div role="tabpanel" class="tab-pane" id="profile">This is result for author</div>
+</div>

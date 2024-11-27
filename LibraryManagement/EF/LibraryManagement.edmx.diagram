@@ -6,6 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="118fd3b5cbaf4377bbd388a216b6d624" Name="Diagram1">
         <EntityTypeShape EntityType="LibraryManagementModel.User" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryManagementModel.Book" Width="1.5" PointX="3.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

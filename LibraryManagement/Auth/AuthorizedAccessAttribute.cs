@@ -9,17 +9,16 @@ namespace LibraryManagement.Auth
 {
     public class AuthorizedAccessAttribute : AuthorizeAttribute
     {
-        public string AllowedRoles { get; set; }
-
+        public string Roles { get; set; }  
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             var user = httpContext.Session["User"] as UserDTO;
             if (user == null) return false;
 
-            if (string.IsNullOrEmpty(AllowedRoles)) return false;
+            if (string.IsNullOrEmpty(Roles)) return false;
 
-            var roles = AllowedRoles.Split(',');
-            return Array.Exists(roles, role => role.Equals(user.Role, StringComparison.OrdinalIgnoreCase));
+            var roles = Roles.Split(',');
+            return roles.Any(role => role.Equals(user.Role, StringComparison.OrdinalIgnoreCase));
         }
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
@@ -27,4 +26,5 @@ namespace LibraryManagement.Auth
             filterContext.Result = new RedirectResult("~/Account/AccessDenied");
         }
     }
+
 }

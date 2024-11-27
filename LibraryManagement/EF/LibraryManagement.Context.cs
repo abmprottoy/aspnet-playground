@@ -26,5 +26,6 @@ namespace LibraryManagement.EF
         }
     
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Book> Books { get; set; }
     }
 }
