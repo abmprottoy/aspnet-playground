@@ -1,26 +1,71 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Search";
 }
-<form class="navbar-form p-l-n m-l-n" role="search">
-    <div class="form-group ">
-        <input type="text" id="navbar-search-input" class="form-control" placeholder="Search..." style="min-width:500px">
-        <button type="submit" class="btn btn-default theme-on-img-light"></button>
+
+<!-- Search form -->
+<form class="navbar-form p-l-n m-l-n" role="search" method="get" action="@Url.Action("Index", "Search")">
+    <div class="form-group">
+        <input type="text" id="navbar-search-input" name="q" class="form-control" placeholder="Search..." style="min-width:500px" value="@ViewBag.Query" />
+        <button type="submit" class="btn btn-default theme-on-img-light">
+            <span class="glyphicon glyphicon-search"></span>
+        </button>
     </div>
 </form>
 
-<div>
-    <p class="type-c1 color-type-secondary">About 3 results (0.55 ms)</p>
-</div>
+@if (!string.IsNullOrWhiteSpace(ViewBag.Query))
+{
+    <div>
+        <p class="type-c1 color-type-secondary">About @ViewBag.TitleResults.Count results for "@ViewBag.Query"</p>
+    </div>
+}
 
 <!-- Nav tabs -->
 <ul class="nav nav-tabs p-t-xs" role="tablist">
-    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">title</a></li>
-    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">author</a></li>
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Title</a></li>
+    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Author</a></li>
 </ul>
 
 <!-- Tab panes -->
 <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="home">This is search result for title</div>
-    <div role="tabpanel" class="tab-pane" id="profile">This is result for author</div>
+    <!-- Title Tab -->
+    <div role="tabpanel" class="tab-pane active" id="home">
+        @if (ViewBag.TitleResults != null)
+        {
+            <ul>
+                @foreach (var book in ViewBag.TitleResults)
+                {
+                    <li>
+                        <strong>@book.Title</strong> by @book.Author
+                        <br />
+                        ISBN: @book.ISBN | Published: @book.PublicationYear | Copies Available: @book.CopiesAvailable
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>No results found for title search.</p>
+        }
+    </div>
+
+    <!-- Author Tab -->
+    <div role="tabpanel" class="tab-pane" id="profile">
+        @if (ViewBag.AuthorResults != null)
+        {
+            <ul>
+                @foreach (var book in ViewBag.AuthorResults)
+                {
+                    <li>
+                        <strong>@book.Title</strong> by @book.Author
+                        <br />
+                        ISBN: @book.ISBN | Published: @book.PublicationYear | Copies Available: @book.CopiesAvailable
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>No results found for author search.</p>
+        }
+    </div>
 </div>
