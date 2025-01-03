@@ -1,0 +1,48 @@
+﻿@model List<EmbassyTokenizer.Models.Token>
+
+@{
+    var counters = new List<string> { "Med", "TR", "BS", "GO" };
+}
+
+<!-- Counter Selection Dropdown -->
+@using (Html.BeginForm())
+{
+    <div>
+        <label for="counter">Select Counter:</label>
+        <select id="counter" name="counter" class="form-control">
+            @foreach (var counter in counters)
+            {
+                <option value="@counter">@counter</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Show Tokens</button>
+}
+
+<br />
+
+<!-- Token List with Radio Buttons -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>Token Number</th>
+            <th>Category</th>
+            <th>Select</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var token in Model)
+        {
+            <tr>
+                <td>@token.Number</td>
+                <td>@token.Category</td>
+                <td>
+                    <input type="radio" name="selectedToken" value="@token.Id" />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Submit Button -->
+<button type="submit" class="btn btn-success">Call Applicant</button>

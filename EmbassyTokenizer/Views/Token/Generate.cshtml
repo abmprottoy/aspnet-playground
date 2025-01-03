@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Generate Token";
+}
+
+<h2>Generate Token</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="type-sh4 color-type-alert">
+        @TempData["Error"]
+    </div>
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="type-sh4 color-type-accent">
+        @TempData["Success"]
+    </div>
+}
+
+<!-- Form for Generating Token -->
+@using (Html.BeginForm("Generate", "Token", FormMethod.Post))
+{
+    <div>
+        <label>
+            <input type="radio" name="category" value="Med" required />
+            Medical (Med)
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="radio" name="category" value="TR" />
+            Tourist (TR)
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="radio" name="category" value="BS" />
+            Business (BS)
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="radio" name="category" value="GO" />
+            Government Officials (GO)
+        </label>
+    </div>
+
+    <div style="margin-top: 10px;">
+        <button type="submit">Generate Token</button>
+    </div>
+}

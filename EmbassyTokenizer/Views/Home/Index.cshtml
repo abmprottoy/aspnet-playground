@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron theme-dark color-darkblue" style="background-color: #004B50;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-md-push-12 text-center">
+                <img src="~/Content/Images/light.svg" alt="Visa Token Generator" class="img-responsive pull-right" style="width: 200px; height: 200px;" />
+            </div>
+            <div class="col-md-12 col-md-pull-12">
+                <div class="type-h2">
+                    Visa Token Generator
+                </div>
+                <div class="type-sh3">
+                    Generate a token and please wait for your call.
+                </div>
+
+                <div class="btn-group m-t-sm">
+                    @Html.ActionLink("Generate Token", "Generate", "Token", new { area = "" }, new { @class = "btn btn-primary" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
